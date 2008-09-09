@@ -5,6 +5,7 @@
 #include <boost/weak_ptr.hpp>
 #include <vector>
 #include <string>
+#include <exception>
 
 // Forward declarations
 class Node;
@@ -19,6 +20,37 @@ typedef std::basic_string<unsigned short> DOMString;
 
 // DOMTimeStamp is defined as a unsigned long long in DOM level 2 core specs
 typedef unsigned long long DOMTimeStamp;
+
+
+class DOMException : public std::exception {
+public:
+	enum {
+		INDEX_SIZE_ERR = 1,
+		DOMSTRING_SIZE_ERR,
+		HIERARCHY_REQUEST_ERR,
+		WRONG_DOCUMENT_ERR,
+		INVALID_CHARACTER_ERR,
+		NO_DATA_ALLOWED_ERR,
+		NO_MODIFICATION_ALLOWED_ERR,
+		NOT_FOUND_ERR,
+		NOT_SUPPORTED_ERR,
+		INUSE_ATTRIBUTE_ERR,
+		INVALID_STATE_ERR,
+		SYNTAX_ERR,
+		INVALID_MODIFICATION_ERR,
+		NAMESPACE_ERR,
+		INVALID_ACCESS_ERR,
+	};
+public:
+	DOMException(unsigned short c): mCode(c) { }
+	unsigned short code() const { return mCode; }
+	virtual const char* what() const throw() {
+		return "DOMException";
+	}
+private:
+	unsigned short mCode;
+};
+
 
 // From DOM-Level-2-Core, section 1.1.2, "Memory Management":
 // To ensure a consistent API across [...] platforms, the DOM does not address
