@@ -7,6 +7,8 @@
 #include <string>
 #include <exception>
 
+namespace dom {
+
 // Forward declarations
 class Node;
 class Attr;
@@ -96,6 +98,8 @@ public:
 	static bool				hasFeature(const DOMString& feature, const DOMString& version);
 	static DocumentPtr		createDocument();
 };
+
+}; // namespace dom
 
 #endif // DOM_TYPES_INCLUDED
 

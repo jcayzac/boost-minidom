@@ -2,6 +2,7 @@
 #include <boost/tokenizer.hpp>
 #include <map>
 #include "dom_utils.hpp"
+using namespace dom;
 
 #define S(x) (const unsigned short* const)L##x
 typedef boost::tokenizer<boost::char_separator<unsigned short>,DOMString::const_iterator,DOMString> DOMTokenizer;

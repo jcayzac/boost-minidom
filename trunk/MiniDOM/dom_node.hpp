@@ -3,6 +3,8 @@
 
 #include "dom_types.hpp"
 
+namespace dom {
+
 /** @brief Base class for all DOM nodes.
   * @note Nodes may or may not have a parent element.
   * @note Nodes always have an owner. i.e.) ownerDocument() never returns null.
@@ -113,5 +115,7 @@ private:
 	NodePtr			m_pNextSibling;
 	NodeWeakPtr		m_pPreviousSibling;
 };
+
+}; // namespace dom
 
 #endif // DOM_NODE_INCLUDED

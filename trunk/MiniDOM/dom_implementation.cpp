@@ -1,5 +1,6 @@
 #include "dom_types.hpp"
 #include "dom_document.hpp"
+using namespace dom;
 
 bool DOMImplementation::hasFeature(const DOMString& feature, const DOMString& version) {
 	return false;

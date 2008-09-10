@@ -1,6 +1,10 @@
 #if !defined(DOM_XPATH_INCLUDED)
 #define DOM_XPATH_INCLUDED
 
+namespace dom {
+
+#if 0 // Not yet ported
+
 class SubExpression;
 typedef boost::shared_ptr<SubExpression> SubExpressionPtr;
 
@@ -88,5 +92,9 @@ private:
 	bool						mFound;
 	bool						mMalformed;
 };
+
+#endif // 0
+
+}; // namespace dom
 
 #endif // DOM_XPATH_INCLUDED
