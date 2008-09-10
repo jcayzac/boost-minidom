@@ -12,6 +12,4 @@ int main(int argc, const char** argv) {
 	DocumentPtr doc = DOMImplementation::createDocument();
 	NodePtr root = doc->createElement(S("root"));
 	doc->appendChild(root);
-	int z = sizeof(wchar_t);
-	z;
 }
