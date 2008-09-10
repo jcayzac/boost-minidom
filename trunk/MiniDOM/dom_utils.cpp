@@ -1,8 +1,10 @@
 #include <boost/pool/detail/singleton.hpp>
+#include <boost/tokenizer.hpp>
 #include <map>
 #include "dom_utils.hpp"
 
 #define S(x) (const unsigned short* const)L##x
+typedef boost::tokenizer<boost::char_separator<unsigned short>,DOMString::const_iterator,DOMString> DOMTokenizer;
 
 
 // This object will be wrapped into a singleton, and built before main() is called
@@ -275,6 +277,17 @@ private:
 	}
 };
 
+class EmptyString {
+public:
+	static const DOMString& get() {
+		return boost::details::pool::singleton_default<EmptyString>::instance().mValue;
+	}
+private:
+	friend boost::details::pool::singleton_default<EmptyString>;
+	DOMString mValue;
+	EmptyString() { }
+};
+
 unsigned short DOMUtils::translateXMLEntity(const DOMString& entity) {
 	if (0==entity.find(S("#"),0,1)) {
 		// Numerical entity
@@ -295,3 +308,19 @@ unsigned short DOMUtils::translateXMLEntity(const DOMString& entity) {
 	}
 	return EntityDatabase::get(entity);
 }
+
+
+void DOMUtils::explodeString(const DOMString& src, const DOMString& separator, std::vector<DOMString>& output) {
+	output.clear();
+	boost::char_separator<unsigned short> sep(separator.data());
+	DOMTokenizer tokens(src, sep);
+	DOMTokenizer::iterator it = tokens.begin();
+ 
+	while(it != tokens.end())
+		output.push_back(*(it++));
+}
+
+const DOMString& DOMUtils::emptyString() {
+	return EmptyString::get();
+}
+

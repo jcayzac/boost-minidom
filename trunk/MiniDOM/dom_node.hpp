@@ -80,19 +80,10 @@ public:
 	bool				isSameNode(const NodePtr& n) const;
 	bool				isEqualNode(const NodePtr& n) const;
 
-	// Conversion
-	friend bool operator>>(const NodePtr& node,DOMString& result);
-	friend bool operator>>(const NodePtr& node,unsigned short& result);
-	friend bool operator>>(const NodePtr& node,unsigned long& result);
-	friend bool operator>>(const NodePtr& node,short& result);
-	friend bool operator>>(const NodePtr& node,long& result);
-	friend bool operator>>(const NodePtr& node,float& result);
-	friend bool operator>>(const NodePtr& node,bool& result);
-
 public:
 	NodePtr				_myself() const;
-	void				_setParent(const Node&);
-	void				_setOwnerDocument(const Document&);
+	void				_setParent(const NodePtr&);
+	void				_setOwnerDocument(const DocumentPtr&);
 
 private:
 	// Only set by Element when attaching/detaching a child Node

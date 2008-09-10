@@ -5,7 +5,7 @@ bool DOMImplementation::hasFeature(const DOMString& feature, const DOMString& ve
 	return false;
 }
 
-DocumentPtr DOMImplementation::createDocument(const DOMString& namespaceURI, const DOMString& qualifiedName, const DocumentType& doctype) {
+DocumentPtr DOMImplementation::createDocument() {
 	Document* object = new Document();
 	if (object) {
 		DocumentPtr document(object);
@@ -16,6 +16,3 @@ DocumentPtr DOMImplementation::createDocument(const DOMString& namespaceURI, con
 	return DocumentPtr();
 }
 
-DocumentTypePtr	DOMImplementation::createDocumentType(const DOMString& qualifiedName, const DOMString& publicId, const DOMString& systemId) {
-	return DocumentTypePtr();
-}

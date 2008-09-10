@@ -175,11 +175,27 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\dom_attr.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\dom_document.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\dom_element.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\dom_implementation.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\dom_node.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\dom_text.cpp"
 				>
 			</File>
 			<File
