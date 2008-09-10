@@ -20,11 +20,8 @@ public:
 	void				deleteData(unsigned long offset, unsigned long count);
 	void				replaceData(unsigned long offset, unsigned long count, const DOMString& arg);
 	//
-	TextPtr				splitText(unsigned long offset);
 	TextPtr				replaceWholeText(const DOMString& content);
 	const DOMString&	wholeText() const;
-	bool				isWhitespaceOnly() const;
-	bool				isElementContentWhitespace() const;
 
 	// From Node
 	NodePtr	cloneNode(bool deep=false) const;

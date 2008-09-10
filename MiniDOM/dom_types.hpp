@@ -94,10 +94,7 @@ typedef NodeList::const_iterator		NodeConstIterator;
 class DOMImplementation {
 public:
 	static bool				hasFeature(const DOMString& feature, const DOMString& version);
-	static DocumentPtr		createDocument(const DOMString& namespaceURI, const DOMString& qualifiedName, const DocumentType& doctype);
-
-	/// DocumentType is not supported, so this will always return a NULL pointer.
-	static DocumentTypePtr	createDocumentType(const DOMString& qualifiedName, const DOMString& publicId, const DOMString& systemId);
+	static DocumentPtr		createDocument();
 };
 
 #endif // DOM_TYPES_INCLUDED
