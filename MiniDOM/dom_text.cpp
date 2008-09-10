@@ -1,7 +1,6 @@
-#include <boost/shared_ptr.hpp>
-
 #include "dom_text.hpp"
 #include "dom_document.hpp"
+using namespace dom;
 
 #define S(x) (const unsigned short* const)L##x
 

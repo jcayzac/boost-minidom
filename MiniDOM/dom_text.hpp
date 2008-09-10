@@ -3,6 +3,8 @@
 
 #include "dom_node.hpp"
 
+namespace dom {
+
 class Text: public Node {
 private:
 	Text(const Text&);
@@ -30,5 +32,7 @@ public:
 private:
 	mutable DOMString m_oTempString;
 };
+
+}; // namespace dom
 
 #endif // DOM_TEXT_INCLUDED

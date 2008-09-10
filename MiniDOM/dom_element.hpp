@@ -3,6 +3,8 @@
 
 #include "dom_node.hpp"
 
+namespace dom {
+
 /// Provides basic XML Namespaces support
 struct NamespaceInfo {
 	DOMString	prefix;
@@ -59,6 +61,8 @@ protected:
 	NodePtr						m_pFirstAttribute;
 	NodePtr						m_pLastAttribute;
 	std::vector<NamespaceInfo>	m_oNamespacesInfo;
+};
+
 };
 
 #endif // DOM_ELEMENT_INCLUDED

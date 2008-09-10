@@ -3,6 +3,7 @@
 #include "dom_element.hpp"
 #include "dom_document.hpp"
 #include "dom_utils.hpp"
+using namespace dom;
 
 #define S(x) (const unsigned short* const)L##x
 

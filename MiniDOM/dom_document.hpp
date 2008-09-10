@@ -3,6 +3,8 @@
 
 #include "dom_element.hpp"
 
+namespace dom {
+
 class Document : public Element {
 private:
 	friend class DOMImplementation;
@@ -31,5 +33,6 @@ private:
 	DOMString	m_oEncoding;
 };
 
+}; // namespace dom
 
 #endif // DOM_DOCUMENT_INCLUDED

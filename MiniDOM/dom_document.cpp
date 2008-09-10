@@ -2,6 +2,7 @@
 #include "dom_text.hpp"
 #include "dom_attr.hpp"
 #include "dom_element.hpp"
+using namespace dom;
 
 #define S(x) (const unsigned short* const)L##x
 

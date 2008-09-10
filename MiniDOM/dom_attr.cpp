@@ -1,5 +1,6 @@
 #include "dom_attr.hpp"
 #include "dom_document.hpp"
+using namespace dom;
 
 Attr::Attr(const DOMString& name)
 : Node(name,ATTRIBUTE_NODE)
