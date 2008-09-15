@@ -1,5 +1,6 @@
 #include <boost/pool/detail/singleton.hpp>
 #include <boost/tokenizer.hpp>
+#include <boost/detail/workaround.hpp>
 #include <map>
 #include "dom_utils.hpp"
 #include "dom_config.hpp"
@@ -18,8 +19,16 @@ public:
         return it->second;
     }
 private:
-    TEMPLATED_FRIEND boost::details::pool::singleton_default<EntityDatabase>;
     std::map<std::wstring,wchar_t> mEntityMap;
+#if BOOST_WORKAROUND(BOOST_MSVC, <= 1300)
+public:
+#elif defined(BOOST_MSVC)
+    // for some inexplicable reason insertion of "class" generates compile erro
+    // on msvc 7.1
+    friend boost::details::pool::singleton_default<EntityDatabase>;
+#else
+    friend class boost::details::pool::singleton_default<EntityDatabase>;
+#endif
     EntityDatabase() {
         mEntityMap[L"amp"]         = 0x0026;    // XML 1.0, HTML 2.0 ampersand
         mEntityMap[L"apos"]        = 0x0027;    // XML 1.0, XHTML    apostrophe

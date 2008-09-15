@@ -9,6 +9,11 @@ namespace dom {
 
 class DOMUtils {
 public:
+    /** Translate an XML/HTML entity, such as &amp;eacute; or &amp;#67;
+      * or &amp;#xe3;, and return its character value.
+      * @param entity Name of the entity
+      * @return The corresponding character
+      */
 	static wchar_t translateXMLEntity(const std::wstring& entity);
 };
 
