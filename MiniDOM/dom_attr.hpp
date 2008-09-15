@@ -9,18 +9,18 @@ class Attr: public Node {
 private:
 	Attr(const Attr&);
 public:
-	Attr(const DOMString& name);
+	Attr(const std::wstring& name);
 	virtual ~Attr() { }
 
-	const DOMString&	name() const					{ return nodeName(); }
-	const DOMString&	value() const					{ return m_oValue; }
-	void				setValue(const DOMString& v)	{ m_oValue=v; }
-	ElementPtr			ownerElement() const;
+	const std::wstring&	name() const	{ return nodeName(); }
+	const std::wstring&	value() const	{ return m_oValue; }
+	void			setValue(const std::wstring& v)	{ m_oValue=v; }
+	ElementPtr		ownerElement() const;
 
 	// From Node
 	NodePtr	cloneNode(bool deep=false) const;
-	bool	textContent(DOMString& output) const { output=m_oValue; return true; }
-	void	setTextContent(const DOMString& newContent) { m_oValue=newContent; }
+	bool	textContent(std::wstring& output) const { output=m_oValue; return true; }
+	void	setTextContent(const std::wstring& newContent) { m_oValue=newContent; }
 };
 
 }; // namespace dom

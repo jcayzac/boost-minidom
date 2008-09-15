@@ -33,20 +33,20 @@ private:
 	Node();
 	Node(const Node&);
 protected:
-	Node(const DOMString& name, TNodeType type);
+	Node(const std::wstring& name, TNodeType type);
 public:
 	virtual ~Node() { }
 
-	const DOMString&	nodeName() const		{ return m_oName; }
-	const DOMString&	nodeValue() const		{ return m_oValue; }
+	const std::wstring&	nodeName() const		{ return m_oName; }
+	const std::wstring&	nodeValue() const		{ return m_oValue; }
 	TNodeType			nodeType() const		{ return m_eType; }
 
-	const DOMString&	namespaceURI() const;
-	const DOMString&	prefix() const			{ return m_oPrefix; }
-	const DOMString&	localName() const		{ return m_oLocalName; }
-	const DOMString&	lookupPrefix(const DOMString& namespaceURI) const;
-	bool				isDefaultNamespace(const DOMString& namespaceURI) const;
-	const DOMString&	lookupNamespaceURI(const DOMString& prefix) const;
+	const std::wstring&	namespaceURI() const;
+	const std::wstring&	prefix() const			{ return m_oPrefix; }
+	const std::wstring&	localName() const		{ return m_oLocalName; }
+	const std::wstring&	lookupPrefix(const std::wstring& namespaceURI) const;
+	bool				isDefaultNamespace(const std::wstring& namespaceURI) const;
+	const std::wstring&	lookupNamespaceURI(const std::wstring& prefix) const;
 
 	DocumentPtr			ownerDocument() const	{ return m_pOwnerDocument.lock(); }
 	NodePtr				parentNode() const		{ return m_pParent.lock(); }
@@ -68,14 +68,14 @@ public:
 	virtual bool		hasChildNodes() const											{ return false;  }
 	virtual bool		hasAttributes() const											{ return false;  }
 
-	virtual NodePtr		getAttribute(const DOMString& name) const					{ return NodePtr(); }
-	virtual void		setAttribute(const DOMString& name, const DOMString& value)	{ }
-	virtual NodePtr		getElementById(const DOMString& id) const					{ return NodePtr(); }
-	virtual NodeListPtr	getElementsByTagName(const DOMString& name) const			{ return NodeListPtr(); }
+	virtual NodePtr		getAttribute(const std::wstring& name) const					{ return NodePtr(); }
+	virtual void		setAttribute(const std::wstring& name, const std::wstring& value)	{ }
+	virtual NodePtr		getElementById(const std::wstring& id) const					{ return NodePtr(); }
+	virtual NodeListPtr	getElementsByTagName(const std::wstring& name) const			{ return NodeListPtr(); }
 
 	virtual NodePtr		cloneNode(bool deep=false) const = 0;
-	virtual bool		textContent(DOMString& output) const = 0;
-	virtual void		setTextContent(const DOMString& newContent) = 0;
+	virtual bool		textContent(std::wstring& output) const = 0;
+	virtual void		setTextContent(const std::wstring& newContent) = 0;
 	// Comparison
 	friend bool			operator==(const Node& a, const Node& b);
 	friend bool			operator!=(const Node& a, const Node& b);
@@ -98,22 +98,22 @@ private:
 
 protected:
 	// Only set by derivated classes
-	DOMString	m_oValue;
+	std::wstring	m_oValue;
 
 private:
 	TNodeType	m_eType;
-	DOMString	m_oName;
+	std::wstring	m_oName;
 	//
-	DOMString	m_oPrefix;
-	DOMString	m_oLocalName;
-	DOMString	m_oEmpty;
+	std::wstring	m_oPrefix;
+	std::wstring	m_oLocalName;
+	std::wstring	m_oEmpty;
 	//
 	DocumentWeakPtr	m_pOwnerDocument;
-	NodeWeakPtr		m_pParent;
-	NodeWeakPtr		m_pSelf;
+	NodeWeakPtr	m_pParent;
+	NodeWeakPtr	m_pSelf;
 	//
-	NodePtr			m_pNextSibling;
-	NodeWeakPtr		m_pPreviousSibling;
+	NodePtr		m_pNextSibling;
+	NodeWeakPtr	m_pPreviousSibling;
 };
 
 }; // namespace dom

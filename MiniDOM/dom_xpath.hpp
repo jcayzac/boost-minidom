@@ -46,7 +46,7 @@ public:
 	/// 
 	/// function := @ string | attr '(' string ')' | position '(' ')'
 	/// 
-	XPathExpression(const DOMString& expression);
+	XPathExpression(const std::wstring& expression);
 
 	/// @brief Return true if the expression could be parsed, false otherwise
 	operator bool() const;
@@ -80,11 +80,11 @@ public:
 	/// @brief Returns how many result nodes this expression resulted in.
 	unsigned long nodeCount() const;
 private:
-	void addTag(const DOMString& v) { mTags.push_back(v); }
+	void addTag(const std::wstring& v) { mTags.push_back(v); }
 	void addSubExpression(const SubExpressionPtr& v) { mExpressions.push_back(v); }
 	void evaluate();
 private:
-	std::vector<DOMString>			mTags;
+	std::vector<std::wstring>			mTags;
 	std::vector<SubExpressionPtr>	mExpressions;
 	//
 	NodeList					mResult;

@@ -9,28 +9,28 @@ class Text: public Node {
 private:
 	Text(const Text&);
 public:
-	Text(const DOMString& data);
+	Text(const std::wstring& data);
 	virtual ~Text() { }
 
 	// Interface CharacterData
-	DOMString&			data()			{ return m_oValue; }
-	const DOMString&	data() const	{ return m_oValue; }
+	std::wstring&			data()			{ return m_oValue; }
+	const std::wstring&	data() const	{ return m_oValue; }
 	unsigned long		length() const	{ return (unsigned long)m_oValue.length(); }
-	DOMString			substringData(unsigned long offset, unsigned long count) const;
-	void				appendData(const DOMString& arg);
-	void				insertData(unsigned long offset, const DOMString& arg);
+	std::wstring			substringData(unsigned long offset, unsigned long count) const;
+	void				appendData(const std::wstring& arg);
+	void				insertData(unsigned long offset, const std::wstring& arg);
 	void				deleteData(unsigned long offset, unsigned long count);
-	void				replaceData(unsigned long offset, unsigned long count, const DOMString& arg);
+	void				replaceData(unsigned long offset, unsigned long count, const std::wstring& arg);
 	//
-	TextPtr				replaceWholeText(const DOMString& content);
-	const DOMString&	wholeText() const;
+	TextPtr				replaceWholeText(const std::wstring& content);
+	const std::wstring&	wholeText() const;
 
 	// From Node
 	NodePtr	cloneNode(bool deep=false) const;
-	bool	textContent(DOMString& output) const { output=m_oValue; return true; }
-	void	setTextContent(const DOMString& newContent) { m_oValue=newContent; }
+	bool	textContent(std::wstring& output) const { output=m_oValue; return true; }
+	void	setTextContent(const std::wstring& newContent) { m_oValue=newContent; }
 private:
-	mutable DOMString m_oTempString;
+	mutable std::wstring m_oTempString;
 };
 
 }; // namespace dom

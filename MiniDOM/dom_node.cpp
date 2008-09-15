@@ -1,22 +1,22 @@
+#include <boost/algorithm/string/split.hpp>
+#include <boost/algorithm/string/classification.hpp>
 #include <vector>
 #include "dom_node.hpp"
 #include "dom_element.hpp"
 #include "dom_utils.hpp"
 using namespace dom;
 
-#define S(x) (const unsigned short* const)L##x
-
-Node::Node(const DOMString& name, TNodeType type)
+Node::Node(const std::wstring& name, TNodeType type)
 : m_eType(type)
 , m_oName(name)
 {
 	// Try to deduce a prefix and a localname
-	std::vector<DOMString> nameParts;
-	DOMUtils::explodeString(name, S(":"), nameParts);
+	std::vector<std::wstring> nameParts;
+	boost::algorithm::split(nameParts, name, boost::algorithm::is_any_of(L":"));
 	if (nameParts.size()<2)
 		m_oLocalName=m_oName;
 	else {
-		m_oPrefix		= nameParts[0];
+		m_oPrefix	= nameParts[0];
 		m_oLocalName	= nameParts[1];
 	}
 }
@@ -63,21 +63,23 @@ bool Node::isEqualNode(const NodePtr& n) const {
 NodePtr Node::_myself() const {
 	return m_pSelf.lock();
 }
+
 void Node::_setParent(const NodePtr& parent) {
 	if (nodeType()==DOCUMENT_NODE) return;
 	m_pParent = parent;
 	if (parent && parent->ownerDocument())
 		_setOwnerDocument(parent->ownerDocument());
 }
+
 void Node::_setOwnerDocument(const DocumentPtr& document) {
 	m_pOwnerDocument = document;
 }
 
-const DOMString& Node::namespaceURI() const {
+const std::wstring& Node::namespaceURI() const {
 	return lookupNamespaceURI(prefix());
 }
 
-const DOMString& Node::lookupPrefix(const DOMString& namespaceURI) const {
+const std::wstring& Node::lookupPrefix(const std::wstring& namespaceURI) const {
 	if (nodeType()==ELEMENT_NODE) {
 		const Element* impl = reinterpret_cast<const Element*>(this);
 		const NamespaceInfo* info = impl->_getNamespaceInfoByURI(namespaceURI);
@@ -92,11 +94,10 @@ const DOMString& Node::lookupPrefix(const DOMString& namespaceURI) const {
 	return m_oEmpty;
 }
 
-bool Node::isDefaultNamespace(const DOMString& namespaceURI) const {
-	const DOMString& defaultURI = lookupNamespaceURI(S(""));
-	return (defaultURI==namespaceURI);
+bool Node::isDefaultNamespace(const std::wstring& namespaceURI) const {
+	return namespaceURI.empty();
 }
-const DOMString& Node::lookupNamespaceURI(const DOMString& prefix) const {
+const std::wstring& Node::lookupNamespaceURI(const std::wstring& prefix) const {
 	if (nodeType()==ELEMENT_NODE) {
 		const Element* impl = reinterpret_cast<const Element*>(this);
 		const NamespaceInfo* info = impl->_getNamespaceInfoByPrefix(prefix);

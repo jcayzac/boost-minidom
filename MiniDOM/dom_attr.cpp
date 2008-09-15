@@ -1,8 +1,9 @@
+#include <string>
 #include "dom_attr.hpp"
 #include "dom_document.hpp"
 using namespace dom;
 
-Attr::Attr(const DOMString& name)
+Attr::Attr(const std::wstring& name)
 : Node(name,ATTRIBUTE_NODE)
 { }
 

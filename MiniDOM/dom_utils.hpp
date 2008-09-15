@@ -9,9 +9,8 @@ namespace dom {
 
 class DOMUtils {
 public:
-	static unsigned short translateXMLEntity(const DOMString& entity);
-	static void explodeString(const DOMString& src, const DOMString& separator, std::vector<DOMString>& output);
-	static const DOMString& emptyString();
+	static wchar_t translateXMLEntity(const std::wstring& entity);
+	static const std::wstring& emptyString();
 };
 
 }; // namespace dom
