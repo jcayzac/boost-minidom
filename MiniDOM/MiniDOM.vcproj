@@ -217,6 +217,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\dom_config.hpp"
+				>
+			</File>
+			<File
 				RelativePath=".\dom_document.hpp"
 				>
 			</File>

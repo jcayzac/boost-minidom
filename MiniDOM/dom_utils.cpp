@@ -2,6 +2,7 @@
 #include <boost/tokenizer.hpp>
 #include <map>
 #include "dom_utils.hpp"
+#include "dom_config.hpp"
 using namespace dom;
 
 #define S(x) (const unsigned short* const)L##x
@@ -19,7 +20,7 @@ public:
 		return it->second;
 	}
 private:
-	friend boost::details::pool::singleton_default<EntityDatabase>;
+	TEMPLATED_FRIEND boost::details::pool::singleton_default<EntityDatabase>;
 	std::map<DOMString,unsigned short> mEntityMap;
 	EntityDatabase() {
 		mEntityMap[S("amp")]		= 0x0026;	// XML 1.0, HTML 2.0	ampersand
@@ -79,9 +80,9 @@ private:
 		mEntityMap[S("fnof")]		= 0x0192;	// HTML 4.0 	Latin small letter f with hook
 		mEntityMap[S("frasl")]		= 0x2044;	// HTML 4.0 	fraction slash
 		mEntityMap[S("forall")]		= 0x2200;	// HTML 4.0 	for all
-		mEntityMap[S("gt")]			= 0x003e;	// XML 1.0, HTML 2.0	greater-than sign
+		mEntityMap[S("gt")]		= 0x003e;	// XML 1.0, HTML 2.0	greater-than sign
 		mEntityMap[S("gamma")]		= 0x03B3;	// HTML 4.0 	Greek small letter gamma
-		mEntityMap[S("ge")]			= 0x2265;	// HTML 4.0 	greater-than or equal to
+		mEntityMap[S("ge")]		= 0x2265;	// HTML 4.0 	greater-than or equal to
 		mEntityMap[S("hellip")]		= 0x2026;	// HTML 4.0 	horizontal ellipsis
 		mEntityMap[S("harr")]		= 0x2194;	// HTML 4.0 	left right arrow
 		mEntityMap[S("hArr")]		= 0x21D4;	// HTML 4.0 	left right double arrow
@@ -98,7 +99,7 @@ private:
 		mEntityMap[S("infin")]		= 0x221E;	// HTML 4.0 	infinity
 		mEntityMap[S("int")]		= 0x222B;	// HTML 4.0 	integral
 		mEntityMap[S("kappa")]		= 0x03BA;	// HTML 4.0 	Greek small letter kappa
-		mEntityMap[S("lt")]			= 0x003c;	// XML 1.0, HTML 2.0	less-than sign
+		mEntityMap[S("lt")]		= 0x003c;	// XML 1.0, HTML 2.0	less-than sign
 		mEntityMap[S("laquo")]		= 0x00AB;	// HTML 3.2 	left-pointing double angle quotation mark
 		mEntityMap[S("lambda")]		= 0x03BB;	// HTML 4.0 	Greek small letter lambda
 		mEntityMap[S("lrm")]		= 0x200E;	// HTML 4.0 	left-to-right mark
@@ -108,7 +109,7 @@ private:
 		mEntityMap[S("lsaquo")]		= 0x2039;	// HTML 4.0 	single left-pointing angle quotation mark
 		mEntityMap[S("lArr")]		= 0x21D0;	// HTML 4.0 	leftwards double arrow
 		mEntityMap[S("lowast")]		= 0x2217;	// HTML 4.0 	asterisk operator
-		mEntityMap[S("le")]			= 0x2264;	// HTML 4.0 	less-than or equal to
+		mEntityMap[S("le")]		= 0x2264;	// HTML 4.0 	less-than or equal to
 		mEntityMap[S("lceil")]		= 0x2308;	// HTML 4.0 	left ceiling
 		mEntityMap[S("lfloor")]		= 0x230A;	// HTML 4.0 	left floor
 		mEntityMap[S("lang")]		= 0x2329;	// HTML 4.0 	left-pointing angle bracket
@@ -116,18 +117,18 @@ private:
 		mEntityMap[S("macr")]		= 0x00AF;	// HTML 3.2 	macron
 		mEntityMap[S("micro")]		= 0x00B5;	// HTML 3.2 	micro sign
 		mEntityMap[S("middot")]		= 0x00B7;	// HTML 3.2 	middle dot
-		mEntityMap[S("mu")]			= 0x03BC;	// HTML 4.0 	Greek small letter mu
+		mEntityMap[S("mu")]		= 0x03BC;	// HTML 4.0 	Greek small letter mu
 		mEntityMap[S("mdash")]		= 0x2014;	// HTML 4.0 	em dash
 		mEntityMap[S("minus")]		= 0x2212;	// HTML 4.0 	minus sign
 		mEntityMap[S("nbsp")]		= 0x00A0;	// HTML 3.2 	non-breaking space
 		mEntityMap[S("ntilde")]		= 0x00F1;	// HTML 2.0 	Latin small letter n with tilde
 		mEntityMap[S("not")]		= 0x00AC;	// HTML 3.2 	not sign
-		mEntityMap[S("nu")]			= 0x03BD;	// HTML 4.0 	Greek small letter nu
+		mEntityMap[S("nu")]		= 0x03BD;	// HTML 4.0 	Greek small letter nu
 		mEntityMap[S("ndash")]		= 0x2013;	// HTML 4.0 	en dash
 		mEntityMap[S("nabla")]		= 0x2207;	// HTML 4.0 	nabla
 		mEntityMap[S("notin")]		= 0x2209;	// HTML 4.0 	not an element of
-		mEntityMap[S("ni")]			= 0x220B;	// HTML 4.0 	contains as member
-		mEntityMap[S("ne")]			= 0x2260;	// HTML 4.0 	not equal to
+		mEntityMap[S("ni")]		= 0x220B;	// HTML 4.0 	contains as member
+		mEntityMap[S("ne")]		= 0x2260;	// HTML 4.0 	not equal to
 		mEntityMap[S("nsub")]		= 0x2284;	// HTML 4.0 	not a subset of
 		mEntityMap[S("ograve")]		= 0x00F2;	// HTML 2.0 	Latin small letter o with grave
 		mEntityMap[S("oacute")]		= 0x00F3;	// HTML 2.0 	Latin small letter o with acute
@@ -141,13 +142,13 @@ private:
 		mEntityMap[S("omicron")]	= 0x03BF;	// HTML 4.0 	Greek small letter omicron
 		mEntityMap[S("omega")]		= 0x03C9;	// HTML 4.0 	Greek small letter omega
 		mEntityMap[S("oline")]		= 0x203E;	// HTML 4.0 	overline
-		mEntityMap[S("or")]			= 0x2228;	// HTML 4.0 	logical or
+		mEntityMap[S("or")]		= 0x2228;	// HTML 4.0 	logical or
 		mEntityMap[S("oplus")]		= 0x2295;	// HTML 4.0 	circled plus
 		mEntityMap[S("otimes")]		= 0x2297;	// HTML 4.0 	circled times
 		mEntityMap[S("pound")]		= 0x00A3;	// HTML 3.2 	pound sign
 		mEntityMap[S("plusmn")]		= 0x00B1;	// HTML 3.2 	plus-minus sign
 		mEntityMap[S("para")]		= 0x00B6;	// HTML 3.2 	pilcrow sign
-		mEntityMap[S("pi")]			= 0x03C0;	// HTML 4.0 	Greek small letter pi
+		mEntityMap[S("pi")]		= 0x03C0;	// HTML 4.0 	Greek small letter pi
 		mEntityMap[S("phi")]		= 0x03C6;	// HTML 4.0 	Greek small letter phi
 		mEntityMap[S("psi")]		= 0x03C8;	// HTML 4.0 	Greek small letter psi
 		mEntityMap[S("piv")]		= 0x03D6;	// HTML 4.0 	Greek pi symbol
@@ -209,7 +210,7 @@ private:
 		mEntityMap[S("uarr")]		= 0x2191;	// HTML 4.0 	upwards arrow			 
 		mEntityMap[S("uArr")]		= 0x21D1;	// HTML 4.0 	upwards double arrow
 		mEntityMap[S("weierp")]		= 0x2118;	// HTML 4.0 	script capital p (Weierstrass p)
-		mEntityMap[S("xi")]			= 0x03BE;	// HTML 4.0 	Greek small letter xi
+		mEntityMap[S("xi")]		= 0x03BE;	// HTML 4.0 	Greek small letter xi
 		mEntityMap[S("yen")]		= 0x00A5;	// HTML 3.2 	yen sign
 		mEntityMap[S("yacute")]		= 0x00FD;	// HTML 2.0 	Latin small letter y with acute
 		mEntityMap[S("yuml")]		= 0x00FF;	// HTML 2.0 	Latin small letter y with diaeresis
@@ -244,9 +245,9 @@ private:
 		mEntityMap[S("Iota")]		= 0x0399;	// HTML 4.0 	Greek capital letter iota
 		mEntityMap[S("Kappa")]		= 0x039A;	// HTML 4.0 	Greek capital letter kappa
 		mEntityMap[S("Lambda")]		= 0x039B;	// HTML 4.0 	Greek capital letter lambda
-		mEntityMap[S("Mu")]			= 0x039C;	// HTML 4.0 	Greek capital letter mu
+		mEntityMap[S("Mu")]		= 0x039C;	// HTML 4.0 	Greek capital letter mu
 		mEntityMap[S("Ntilde")]		= 0x00D1;	// HTML 2.0 	Latin capital letter n with tilde
-		mEntityMap[S("Nu")]			= 0x039D;	// HTML 4.0 	Greek capital letter nu
+		mEntityMap[S("Nu")]		= 0x039D;	// HTML 4.0 	Greek capital letter nu
 		mEntityMap[S("Ograve")]		= 0x00D2;	// HTML 2.0 	Latin capital letter o with grave
 		mEntityMap[S("Oacute")]		= 0x00D3;	// HTML 2.0 	Latin capital letter o with acute
 		mEntityMap[S("Ocirc")]		= 0x00D4;	// HTML 2.0 	Latin capital letter o with circumflex
@@ -256,7 +257,7 @@ private:
 		mEntityMap[S("OElig")]		= 0x0152;	// HTML 4.0 	Latin capital ligature oe
 		mEntityMap[S("Omicron")]	= 0x039F;	// HTML 4.0 	Greek capital letter omicron
 		mEntityMap[S("Omega")]		= 0x03A9;	// HTML 4.0 	Greek capital letter omega
-		mEntityMap[S("Pi")]			= 0x03A0;	// HTML 4.0 	Greek capital letter pi
+		mEntityMap[S("Pi")]		= 0x03A0;	// HTML 4.0 	Greek capital letter pi
 		mEntityMap[S("Phi")]		= 0x03A6;	// HTML 4.0 	Greek capital letter phi
 		mEntityMap[S("Psi")]		= 0x03A8;	// HTML 4.0 	Greek capital letter psi
 		mEntityMap[S("Prime")]		= 0x2033;	// HTML 4.0 	double prime
@@ -271,7 +272,7 @@ private:
 		mEntityMap[S("Ucirc")]		= 0x00DB;	// HTML 2.0 	Latin capital letter u with circumflex
 		mEntityMap[S("Uuml")]		= 0x00DC;	// HTML 2.0 	Latin capital letter u with diaeresis
 		mEntityMap[S("Upsilon")]	= 0x03A5;	// HTML 4.0 	Greek capital letter upsilon
-		mEntityMap[S("Xi")]			= 0x039E;	// HTML 4.0 	Greek capital letter xi
+		mEntityMap[S("Xi")]		= 0x039E;	// HTML 4.0 	Greek capital letter xi
 		mEntityMap[S("Yacute")]		= 0x00DD;	// HTML 2.0 	Latin capital letter y with acute
 		mEntityMap[S("Yuml")]		= 0x0178;	// HTML 4.0 	Latin capital letter y with diaeresis
 		mEntityMap[S("Zeta")]		= 0x0396;	// HTML 4.0 	Greek capital letter zeta
@@ -284,7 +285,7 @@ public:
 		return boost::details::pool::singleton_default<EmptyString>::instance().mValue;
 	}
 private:
-	friend boost::details::pool::singleton_default<EmptyString>;
+	TEMPLATED_FRIEND boost::details::pool::singleton_default<EmptyString>;
 	DOMString mValue;
 	EmptyString() { }
 };
