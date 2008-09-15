@@ -1,3 +1,5 @@
+#include <boost/algorithm/string/split.hpp>
+#include <boost/algorithm/string/classification.hpp>
 #include <vector>
 #include "dom_attr.hpp"
 #include "dom_element.hpp"
@@ -5,9 +7,7 @@
 #include "dom_utils.hpp"
 using namespace dom;
 
-#define S(x) (const unsigned short* const)L##x
-
-Element::Element(const DOMString& name)
+Element::Element(const std::wstring& name)
 : Node(name, ELEMENT_NODE)
 { }
 
@@ -15,7 +15,7 @@ Element::~Element() {
 	// TODO: Detach all child nodes
 }
 
-NodePtr Element::getAttribute(const DOMString& name) const {
+NodePtr Element::getAttribute(const std::wstring& name) const {
 	if (!hasAttributes()) return NodePtr();
 	NodePtr child = m_pFirstAttribute;
 	while (child) {
@@ -24,11 +24,11 @@ NodePtr Element::getAttribute(const DOMString& name) const {
 	}
 	return NodePtr();
 }
-void Element::setAttribute(const DOMString& name, const DOMString& value) {
-	std::vector<DOMString> attrNameParts;
-	DOMUtils::explodeString(name,S(":"),attrNameParts);
+void Element::setAttribute(const std::wstring& name, const std::wstring& value) {
+	std::vector<std::wstring> attrNameParts;
+	boost::algorithm::split(attrNameParts, name, boost::algorithm::is_any_of(L":"));
 	if (attrNameParts.size()==2) {
-		if (attrNameParts[0]==S("xmlns")) {
+		if (attrNameParts[0]==L"xmlns") {
 			// Attribute is a XML Namespace declaration
 			NamespaceInfo info;
 			info.prefix	= attrNameParts[1];
@@ -37,7 +37,7 @@ void Element::setAttribute(const DOMString& name, const DOMString& value) {
 			return;
 		}
 	}
-	if (name==S("xmlns")) {
+	if (name==L"xmlns") {
 		// Default namespace
 			NamespaceInfo info;
 			info.uri	= value;
@@ -201,12 +201,12 @@ NodePtr Element::cloneNode(bool deep) const {
 	return NodePtr();
 }
 
-bool Element::textContent(DOMString& output) const {
+bool Element::textContent(std::wstring& output) const {
 	bool result=false;
 	NodePtr child = m_pFirstChild;
 	while (child) {
 		//FIXME: slow (many reallocs and copies)
-		DOMString tmp;
+		std::wstring tmp;
 		bool tmpr = child->textContent(tmp);
 		if (tmpr) {
 			result=true;
@@ -217,7 +217,7 @@ bool Element::textContent(DOMString& output) const {
 	return result;
 }
 
-void Element::setTextContent(const DOMString& newContent) {
+void Element::setTextContent(const std::wstring& newContent) {
 	if (nodeType()==DOCUMENT_NODE) return;
 	// Remove all child nodes
 	while (m_pFirstChild) removeChild(m_pFirstChild);
@@ -226,23 +226,23 @@ void Element::setTextContent(const DOMString& newContent) {
 	if (textNode) appendChild(textNode);
 }
 
-NodePtr Element::getElementById(const DOMString& id) const {
+NodePtr Element::getElementById(const std::wstring& id) const {
 	NodePtr child = m_pFirstChild;
 	while (child) {
 		if (child->nodeType()==ELEMENT_NODE) {
-			NodePtr attr = child->getAttribute(S("id"));
+			NodePtr attr = child->getAttribute(L"id");
 			if (attr && attr->nodeValue()==id) return child;
 		}
 		child=child->nextSibling();
 	}
 	return NodePtr();
 }
-NodeListPtr Element::getElementsByTagName(const DOMString& name) const {
+NodeListPtr Element::getElementsByTagName(const std::wstring& name) const {
 	NodeListPtr output(new NodeList);
 	if (output) _addElementsByTagName(output,name);
 	return output;
 }
-void Element::_addElementsByTagName(NodeListPtr& output, const DOMString& name) const {
+void Element::_addElementsByTagName(NodeListPtr& output, const std::wstring& name) const {
 	NodePtr child = m_pFirstChild;
 	while (child) {
 		if (child->nodeType()==ELEMENT_NODE && child->nodeName()==name) {
@@ -266,7 +266,7 @@ void Element::_setOwnerDocument(const DocumentPtr& document) {
 	}
 }
 
-const NamespaceInfo* Element::_getNamespaceInfoByURI(const DOMString& uri) const {
+const NamespaceInfo* Element::_getNamespaceInfoByURI(const std::wstring& uri) const {
 	std::vector<NamespaceInfo>::const_iterator it = m_oNamespacesInfo.begin();
 	while(it!=m_oNamespacesInfo.end()) {
 		const NamespaceInfo& info = *it; ++it;
@@ -275,7 +275,7 @@ const NamespaceInfo* Element::_getNamespaceInfoByURI(const DOMString& uri) const
 	return 0;
 }
 
-const NamespaceInfo* Element::_getNamespaceInfoByPrefix(const DOMString& prefix) const {
+const NamespaceInfo* Element::_getNamespaceInfoByPrefix(const std::wstring& prefix) const {
 	std::vector<NamespaceInfo>::const_iterator it = m_oNamespacesInfo.begin();
 	while(it!=m_oNamespacesInfo.end()) {
 		const NamespaceInfo& info = *it; ++it;

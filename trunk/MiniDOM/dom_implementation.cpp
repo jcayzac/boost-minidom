@@ -2,7 +2,7 @@
 #include "dom_document.hpp"
 using namespace dom;
 
-bool DOMImplementation::hasFeature(const DOMString& feature, const DOMString& version) {
+bool DOMImplementation::hasFeature(const std::wstring& feature, const std::wstring& version) {
 	return false;
 }
 

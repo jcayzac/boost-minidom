@@ -17,13 +17,6 @@ class Element;
 class Document;
 class DocumentType;
 
-// DOMString is a sequence of 16-bit units
-typedef std::basic_string<unsigned short> DOMString;
-
-// DOMTimeStamp is defined as a unsigned long long in DOM level 2 core specs
-typedef unsigned long long DOMTimeStamp;
-
-
 class DOMException : public std::exception {
 public:
 	enum {
@@ -95,7 +88,7 @@ typedef NodeList::const_iterator		NodeConstIterator;
 
 class DOMImplementation {
 public:
-	static bool				hasFeature(const DOMString& feature, const DOMString& version);
+	static bool				hasFeature(const std::wstring& feature, const std::wstring& version);
 	static DocumentPtr		createDocument();
 };
 

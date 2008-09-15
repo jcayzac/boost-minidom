@@ -14,23 +14,23 @@ private:
 public:
 	virtual ~Document();
 
-	NodePtr	createElement(const DOMString& name);
-	NodePtr	createTextNode(const DOMString& data);
-	NodePtr	createAttribute(const DOMString& name);
+	NodePtr	createElement(const std::wstring& name);
+	NodePtr	createTextNode(const std::wstring& data);
+	NodePtr	createAttribute(const std::wstring& name);
 	NodePtr	documentElement () const;
 
-	const DOMString&	docType() const	 { return m_oDoctype; }
-	const DOMString&	encoding() const { return m_oEncoding; }
+	const std::wstring&	docType() const	 { return m_oDoctype; }
+	const std::wstring&	encoding() const { return m_oEncoding; }
 
-	void setDocType(const DOMString& dt) { m_oDoctype=dt; }
-	void setEncoding(const DOMString& e) { m_oEncoding=e; }
+	void setDocType(const std::wstring& dt) { m_oDoctype=dt; }
+	void setEncoding(const std::wstring& e) { m_oEncoding=e; }
 
 private:
 	// Used by create*()
 	NodePtr	constructNode(Node* object);
 private:
-	DOMString	m_oDoctype;
-	DOMString	m_oEncoding;
+	std::wstring	m_oDoctype;
+	std::wstring	m_oEncoding;
 };
 
 }; // namespace dom
