@@ -7,20 +7,20 @@ namespace dom {
 
 class Attr: public Node {
 private:
-	Attr(const Attr&);
+    Attr(const Attr&);
 public:
-	Attr(const std::wstring& name);
-	virtual ~Attr() { }
+    Attr(const std::wstring& name);
+    virtual ~Attr() { }
 
-	const std::wstring&	name() const	{ return nodeName(); }
-	const std::wstring&	value() const	{ return m_oValue; }
-	void			setValue(const std::wstring& v)	{ m_oValue=v; }
-	ElementPtr		ownerElement() const;
+    const std::wstring& name() const  { return nodeName(); }
+    const std::wstring& value() const { return m_oValue; }
+    void                setValue(const std::wstring& v) { m_oValue=v; }
+    ElementPtr          ownerElement() const;
 
-	// From Node
-	NodePtr	cloneNode(bool deep=false) const;
-	bool	textContent(std::wstring& output) const { output=m_oValue; return true; }
-	void	setTextContent(const std::wstring& newContent) { m_oValue=newContent; }
+    // From Node
+    NodePtr cloneNode(bool deep=false) const;
+    bool    textContent(std::wstring& output) const { output=m_oValue; return true; }
+    void    setTextContent(const std::wstring& newContent) { m_oValue=newContent; }
 };
 
 }; // namespace dom

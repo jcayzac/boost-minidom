@@ -19,31 +19,31 @@ class DocumentType;
 
 class DOMException : public std::exception {
 public:
-	enum {
-		INDEX_SIZE_ERR = 1,
-		DOMSTRING_SIZE_ERR,
-		HIERARCHY_REQUEST_ERR,
-		WRONG_DOCUMENT_ERR,
-		INVALID_CHARACTER_ERR,
-		NO_DATA_ALLOWED_ERR,
-		NO_MODIFICATION_ALLOWED_ERR,
-		NOT_FOUND_ERR,
-		NOT_SUPPORTED_ERR,
-		INUSE_ATTRIBUTE_ERR,
-		INVALID_STATE_ERR,
-		SYNTAX_ERR,
-		INVALID_MODIFICATION_ERR,
-		NAMESPACE_ERR,
-		INVALID_ACCESS_ERR,
-	};
+    enum {
+        INDEX_SIZE_ERR = 1,
+        DOMSTRING_SIZE_ERR,
+        HIERARCHY_REQUEST_ERR,
+        WRONG_DOCUMENT_ERR,
+        INVALID_CHARACTER_ERR,
+        NO_DATA_ALLOWED_ERR,
+        NO_MODIFICATION_ALLOWED_ERR,
+        NOT_FOUND_ERR,
+        NOT_SUPPORTED_ERR,
+        INUSE_ATTRIBUTE_ERR,
+        INVALID_STATE_ERR,
+        SYNTAX_ERR,
+        INVALID_MODIFICATION_ERR,
+        NAMESPACE_ERR,
+        INVALID_ACCESS_ERR,
+    };
 public:
-	DOMException(unsigned short c): mCode(c) { }
-	unsigned short code() const { return mCode; }
-	virtual const char* what() const throw() {
-		return "DOMException";
-	}
+    DOMException(unsigned short c): mCode(c) { }
+    unsigned short code() const { return mCode; }
+    virtual const char* what() const throw() {
+        return "DOMException";
+    }
 private:
-	unsigned short mCode;
+    unsigned short mCode;
 };
 
 
@@ -58,38 +58,38 @@ private:
 // Thanks to Boost's smart pointers, we really don't need to address any issue
 // at all...
 
-typedef boost::shared_ptr<Node>			NodePtr;
-typedef boost::shared_ptr<Attr>			AttrPtr;
-typedef boost::shared_ptr<Text>			TextPtr;
-typedef boost::shared_ptr<Element>		ElementPtr;
-typedef boost::shared_ptr<Document>		DocumentPtr;
-typedef boost::shared_ptr<DocumentType>	DocumentTypePtr;
+typedef boost::shared_ptr<Node>         NodePtr;
+typedef boost::shared_ptr<Attr>         AttrPtr;
+typedef boost::shared_ptr<Text>         TextPtr;
+typedef boost::shared_ptr<Element>      ElementPtr;
+typedef boost::shared_ptr<Document>     DocumentPtr;
+typedef boost::shared_ptr<DocumentType> DocumentTypePtr;
 
-typedef boost::weak_ptr<Node>			NodeWeakPtr;
-typedef boost::weak_ptr<Attr>			AttrWeakPtr;
-typedef boost::weak_ptr<Text>			TextWeakPtr;
-typedef boost::weak_ptr<Element>		ElementWeakPtr;
-typedef boost::weak_ptr<Document>		DocumentWeakPtr;
-typedef boost::weak_ptr<DocumentType>	DocumentTypeWeakPtr;
+typedef boost::weak_ptr<Node>         NodeWeakPtr;
+typedef boost::weak_ptr<Attr>         AttrWeakPtr;
+typedef boost::weak_ptr<Text>         TextWeakPtr;
+typedef boost::weak_ptr<Element>      ElementWeakPtr;
+typedef boost::weak_ptr<Document>     DocumentWeakPtr;
+typedef boost::weak_ptr<DocumentType> DocumentTypeWeakPtr;
 
 // DOM defines a NodeList as follow:
 // 
 // interface NodeList {
-//		Node item(in unsigned long index);
-//		readonly attribute unsigned long    length;
+//        Node item(in unsigned long index);
+//        readonly attribute unsigned long    length;
 // };
 // 
 // ...but for simplicity, I will use a std::vector<> instead
-typedef std::vector<NodePtr>			NodeList;
-typedef boost::shared_ptr<NodeList>		NodeListPtr;
-typedef boost::weak_ptr<NodeList>		DNodeListWeakPtr;
-typedef NodeList::iterator				NodeIterator;
-typedef NodeList::const_iterator		NodeConstIterator;
+typedef std::vector<NodePtr>        NodeList;
+typedef boost::shared_ptr<NodeList> NodeListPtr;
+typedef boost::weak_ptr<NodeList>   NodeListWeakPtr;
+typedef NodeList::iterator          NodeIterator;
+typedef NodeList::const_iterator    NodeConstIterator;
 
 class DOMImplementation {
 public:
-	static bool				hasFeature(const std::wstring& feature, const std::wstring& version);
-	static DocumentPtr		createDocument();
+    static bool        hasFeature(const std::wstring& feature, const std::wstring& version);
+    static DocumentPtr createDocument();
 };
 
 }; // namespace dom

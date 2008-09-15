@@ -12,7 +12,7 @@
 using namespace dom;
 
 int main(int argc, const char** argv) {
-	DocumentPtr doc = DOMImplementation::createDocument();
-	NodePtr root = doc->createElement(L"root");
-	doc->appendChild(root);
+    DocumentPtr doc = DOMImplementation::createDocument();
+    NodePtr root = doc->createElement(L"root");
+    doc->appendChild(root);
 }
