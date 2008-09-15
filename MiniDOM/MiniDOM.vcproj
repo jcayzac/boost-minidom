@@ -217,10 +217,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\dom_config.hpp"
-				>
-			</File>
-			<File
 				RelativePath=".\dom_document.hpp"
 				>
 			</File>
@@ -230,6 +226,10 @@
 			</File>
 			<File
 				RelativePath=".\dom_node.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\dom_reader.hpp"
 				>
 			</File>
 			<File
