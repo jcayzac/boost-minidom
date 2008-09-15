@@ -120,7 +120,6 @@ private:
 	//
 	DOMString	m_oPrefix;
 	DOMString	m_oLocalName;
-	DOMString	m_oEmpty;
 	//
 	WeakDocument	m_pOwnerDocument;
 	WeakNode		m_pParent;

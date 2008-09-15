@@ -10,7 +10,6 @@ namespace dom {
 class DOMUtils {
 public:
 	static wchar_t translateXMLEntity(const std::wstring& entity);
-	static const std::wstring& emptyString();
 };
 
 }; // namespace dom
