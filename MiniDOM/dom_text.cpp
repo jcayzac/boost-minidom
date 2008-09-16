@@ -1,3 +1,7 @@
+// Copyright © 2008 Julien Cayzac (julien.cayzac@gmail.com)
+// Distributed under the Boost Software License, Version 1.0. (See accompany-
+// ing file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+
 #include "dom_text.hpp"
 #include "dom_document.hpp"
 using namespace dom;
@@ -27,10 +31,11 @@ TextPtr Text::replaceWholeText(const std::wstring& content) {
 }
 
 const std::wstring& Text::wholeText() const {
-    NodePtr sibling    = nextSibling();
-    if (!(sibling && sibling->nodeType()==TEXT_NODE)) return nodeValue();
+    NodePtr sibling = nextSibling();
+    if (!(sibling && sibling->nodeType()==TEXT_NODE))
+        return nodeValue();
 
-    Text* sibling_ptr    = reinterpret_cast<Text*>(sibling.get());
+    Text* sibling_ptr = reinterpret_cast<Text*>(sibling.get());
 
     m_oTempString = nodeValue()+sibling_ptr->wholeText();
     sibling_ptr->m_oTempString.clear();
