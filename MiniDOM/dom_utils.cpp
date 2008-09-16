@@ -1,9 +1,14 @@
 #include <boost/pool/detail/singleton.hpp>
 #include <boost/tokenizer.hpp>
 #include <boost/detail/workaround.hpp>
+#include <boost/algorithm/string/trim.hpp>
+#include <boost/lexical_cast.hpp>
 #include <map>
+#include <vector>
+#include <list>
+#include <iostream>
+#include "dom_document.hpp"
 #include "dom_utils.hpp"
-#include "dom_config.hpp"
 using namespace dom;
 
 typedef boost::tokenizer<boost::char_separator<wchar_t>,std::wstring::const_iterator,std::wstring> DOMTokenizer;
@@ -287,23 +292,88 @@ public:
 };
 
 wchar_t DOMUtils::translateXMLEntity(const std::wstring& entity) {
-    if (0==entity.find(L"#",0,1)) {
-        // Numerical entity
-        if (0==entity.find(L"#x",0,2)) {
-            // Hexadecimal
-            std::basic_istringstream<wchar_t> iss(entity.substr(2,entity.length()-2));
-            wchar_t us;
-            iss >> std::hex >> us;
-            return us;
-        }
-        else {
-            // Decimal
-            std::basic_istringstream<wchar_t> iss(entity.substr(1,entity.length()-1));
-            wchar_t us; 
-            iss >> us; 
-            return us;
-        }
+    if (entity.find(L"&")!=0 || entity.rfind(L";")!=entity.length()-1)
+        throw DOMException(DOMException::INVALID_CHARACTER_ERR);
+    if (0==entity.find(L"&#x")) {
+        // Hexadecimal entity
+        std::wistringstream iss(entity.substr(3,entity.length()-4));
+        wchar_t us;
+        iss >> std::hex >> us;
+        return us;
     }
-    return EntityDatabase::get(entity);
+    else if (0==entity.find(L"&#")) {
+        // Decimal entity
+        std::wistringstream iss(entity.substr(2,entity.length()-3));
+        wchar_t us;
+        iss >> us;
+        return us;
+    }
+    else {
+        // Named entity
+        return EntityDatabase::get(entity.substr(1,entity.length()-2));
+    }
 }
 
+bool DOMUtils::isLineBreakingSpace(wchar_t c) {
+    static const wchar_t LINE_BREAKING[] = {
+        0x000a,	// LINE FEED
+        0x000c,	// FORM FEED
+        0x0085,	// NEXT LINE
+        0x2028, // LINE SEPARATOR
+        0x2029,	// PARAGRAPH SEPARATOR
+    };
+    const wchar_t* begin = &LINE_BREAKING[0];
+    const wchar_t* end   = &LINE_BREAKING[sizeof(LINE_BREAKING)/sizeof(wchar_t)];
+    return (end!=std::find(begin,end,c));
+}
+
+bool DOMUtils::isNonBreakingWhiteSpace(wchar_t c) {
+    static const wchar_t NON_BREAKING_SPACE[] = {
+        0x00a0,	// NBSP
+        0x202f,	// NARROW NBSP
+        0x2060, // WORD JOINER
+        0xfeff, // ZERO WIDTH NO-BREAK SPACE (also used as BOM)
+    };
+    const wchar_t* begin = &NON_BREAKING_SPACE[0];
+    const wchar_t* end   = &NON_BREAKING_SPACE[sizeof(NON_BREAKING_SPACE)/sizeof(wchar_t)];
+    return (end!=std::find(begin,end,c));
+}
+
+bool DOMUtils::isBreakingWhiteSpace(wchar_t c) {
+    static const wchar_t BREAKING_SPACE[] = {
+        0x0009,	// HORIZONTAL TAB
+        0x000b,	// VERTICAL TAB
+        0x000d,	// CARRIAGE RETURN
+        0x0020,	// SPACE
+        0x1680,	// OGHAM SPACE MARK
+        0x180e,	// MONGOLIAN VOWEL SEPARATOR
+        0x2000,	// EN QUAD
+        0x2001,	// EM QUAD
+        0x2002,	// EN SPACE
+        0x2003,	// EM SPACE
+        0x2004,	// THREE-PER-EM SPACE
+        0x2005,	// FOUR-PER-EM SPACE
+        0x2006,	// SIX-PER-EM SPACE
+        0x2007,	// FIGURE SPACE
+        0x2008,	// PUNCTUATION SPACE
+        0x2009,	// THIN SPACE
+        0x200a,	// HAIR SPACE
+        0x205f,	// MEDIUM MATHEMATICAL SPACE
+        0x3000, // IDEOGRAPHIC SPACE
+    };
+    const wchar_t* begin = &BREAKING_SPACE[0];
+    const wchar_t* end   = &BREAKING_SPACE[sizeof(BREAKING_SPACE)/sizeof(wchar_t)];
+    return (end!=std::find(begin,end,c));
+}
+
+bool DOMUtils::isWhiteSpace(wchar_t c) {
+    return isBreakingWhiteSpace(c) || isNonBreakingWhiteSpace(c);
+}
+
+static bool isAnySpace(wchar_t c) {
+    return DOMUtils::isWhiteSpace(c) || DOMUtils::isLineBreakingSpace(c);
+}
+
+void DOMUtils::trimSpaces(std::wstring& s) {
+    boost::trim_if(s,isAnySpace);
+}

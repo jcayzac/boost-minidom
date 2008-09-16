@@ -195,6 +195,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\dom_reader.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\dom_text.cpp"
 				>
 			</File>
@@ -204,6 +208,10 @@
 			</File>
 			<File
 				RelativePath=".\Main.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\utf8_codecvt_facet.cpp"
 				>
 			</File>
 		</Filter>
@@ -246,6 +254,14 @@
 			</File>
 			<File
 				RelativePath=".\dom_xpath.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\utf8_codecvt_facet.hpp"
+				>
+			</File>
+			<File
+				RelativePath=".\utf8_config.hpp"
 				>
 			</File>
 		</Filter>
