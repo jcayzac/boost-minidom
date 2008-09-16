@@ -1,3 +1,7 @@
+// Copyright © 2008 Julien Cayzac (julien.cayzac@gmail.com)
+// Distributed under the Boost Software License, Version 1.0. (See accompany-
+// ing file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+
 #include <boost/algorithm/string/split.hpp>
 #include <boost/algorithm/string/classification.hpp>
 #include <vector>
@@ -17,7 +21,7 @@ Node::Node(const std::wstring& name, TNodeType type)
         m_oLocalName=m_oName;
     else {
         m_oPrefix    = nameParts[0];
-        m_oLocalName    = nameParts[1];
+        m_oLocalName = nameParts[1];
     }
 }
 
@@ -42,16 +46,18 @@ bool Node::isEqualNode(const NodePtr& n) const {
             (prefix()!=n->prefix()) ||
             (nodeValue()!=n->nodeValue()))
         return false;
-    NodePtr child        = attributes();
-    NodePtr otherChild    = n->attributes();
+    NodePtr child      = attributes();
+    NodePtr otherChild = n->attributes();
+    // FIXME: WTF?? childrenOK will always be false at the end of that loop!!
     bool childrenOK;
     while (true==(childrenOK=(child.get() && child.get()==otherChild.get() && child->isEqualNode(otherChild)))) {
-        child        = child->nextSibling();
-        otherChild    = otherChild->nextSibling();
+        child      = child->nextSibling();
+        otherChild = otherChild->nextSibling();
     }
     if (!childrenOK) return false;
-    child        = firstChild();
-    otherChild    = n->firstChild();
+    child      = firstChild();
+    otherChild = n->firstChild();
+    // FIXME: WTF?? childrenOK will always be false at the end of that loop!!
     while (true==(childrenOK=(child.get() && child.get()==otherChild.get() && child->isEqualNode(otherChild)))) {
         child        = child->nextSibling();
         otherChild    = otherChild->nextSibling();
@@ -61,6 +67,7 @@ bool Node::isEqualNode(const NodePtr& n) const {
 }
 
 NodePtr Node::_myself() const {
+    // Return a shared pointer to itself
     return m_pSelf.lock();
 }
 
@@ -98,6 +105,8 @@ bool Node::isDefaultNamespace(const std::wstring& namespaceURI) const {
         return namespaceURI==lookupNamespaceURI(L"");
     }
     catch(const DOMException& e) {
+        // If no default namespace has been registered,
+        // then the default URI must be empty
         if (e.code()==DOMException::NOT_FOUND_ERR)
             return namespaceURI.empty();
         else throw;

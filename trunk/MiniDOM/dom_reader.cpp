@@ -1,3 +1,7 @@
+// Copyright © 2008 Julien Cayzac (julien.cayzac@gmail.com)
+// Distributed under the Boost Software License, Version 1.0. (See accompany-
+// ing file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+
 #include <boost/filesystem/path.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/algorithm/string/split.hpp>
@@ -28,7 +32,7 @@ namespace {
     static const wchar_t CHAR_GREATER_THAN      = 0x003e;
     static const wchar_t CHAR_AMPERSAND         = 0x0026;
 
-    // This one is used in parseAttribute to cound the back slashes
+    // This one is used in parseAttribute to count the back slashes
     // and to determine if a quote/doublequote is escaped or not
     static bool notABackSlash(wchar_t c) {
         return (c!=CHAR_BACKSLASH);

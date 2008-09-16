@@ -1,3 +1,7 @@
+// Copyright © 2008 Julien Cayzac (julien.cayzac@gmail.com)
+// Distributed under the Boost Software License, Version 1.0. (See accompany-
+// ing file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+
 #if !defined(DOM_TEXT_INCLUDED)
 #define DOM_TEXT_INCLUDED
 
@@ -5,6 +9,9 @@
 
 namespace dom {
 
+/** Implementation of the TEXT_NODE DOM node.
+  * http://www.w3.org/TR/DOM-Level-2-Core/core.html#ID-1312295772
+  */
 class Text: public Node {
 private:
     Text(const Text&);
@@ -13,6 +20,7 @@ public:
     virtual ~Text() { }
 
     // Interface CharacterData
+    // http://www.w3.org/TR/DOM-Level-2-Core/core.html#ID-FF21A306
     std::wstring&       data()            { return m_oValue; }
     const std::wstring& data() const      { return m_oValue; }
     unsigned long       length() const    { return (unsigned long)m_oValue.length(); }

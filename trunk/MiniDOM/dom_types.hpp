@@ -1,3 +1,7 @@
+// Copyright © 2008 Julien Cayzac (julien.cayzac@gmail.com)
+// Distributed under the Boost Software License, Version 1.0. (See accompany-
+// ing file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+
 #if !defined(DOM_TYPES_INCLUDED)
 #define DOM_TYPES_INCLUDED
 
@@ -17,6 +21,9 @@ class Element;
 class Document;
 class DocumentType;
 
+/** Implementation of DOMException.
+  * http://www.w3.org/TR/DOM-Level-2-Core/core.html#ID-17189187
+  */
 class DOMException : public std::exception {
 public:
     enum {
@@ -47,7 +54,9 @@ private:
 };
 
 
-// From DOM-Level-2-Core, section 1.1.2, "Memory Management":
+// From DOM-Level-2-Core, section 1.1.2, "Memory Management"
+// (http://www.w3.org/TR/DOM-Level-2-Core/core.html#ID-249F15BA)
+//
 // To ensure a consistent API across [...] platforms, the DOM does not address
 // memory management issues at all, but instead leaves these for the
 // implementation. Neither of the explicit language bindings defined by the
@@ -55,8 +64,7 @@ private:
 // but DOM bindings for other languages (especially C or C++) may require such
 // support.
 
-// Thanks to Boost's smart pointers, we really don't need to address any issue
-// at all...
+// The following typedefs will help dealing with memory management
 
 typedef boost::shared_ptr<Node>         NodePtr;
 typedef boost::shared_ptr<Attr>         AttrPtr;
@@ -72,20 +80,24 @@ typedef boost::weak_ptr<Element>      ElementWeakPtr;
 typedef boost::weak_ptr<Document>     DocumentWeakPtr;
 typedef boost::weak_ptr<DocumentType> DocumentTypeWeakPtr;
 
-// DOM defines a NodeList as follow:
+// DOM defines a NodeList as follow
+// (http://www.w3.org/TR/DOM-Level-2-Core/core.html#ID-536297177)
 // 
 // interface NodeList {
 //        Node item(in unsigned long index);
 //        readonly attribute unsigned long    length;
 // };
 // 
-// ...but for simplicity, I will use a std::vector<> instead
+// ...but for simplicity/efficiency, I will use a std::vector<> instead
 typedef std::vector<NodePtr>        NodeList;
 typedef boost::shared_ptr<NodeList> NodeListPtr;
 typedef boost::weak_ptr<NodeList>   NodeListWeakPtr;
 typedef NodeList::iterator          NodeIterator;
 typedef NodeList::const_iterator    NodeConstIterator;
 
+/** Basic implementation of DOMImplementation.
+  * http://www.w3.org/TR/DOM-Level-2-Core/core.html#ID-102161490
+  */
 class DOMImplementation {
 public:
     static bool        hasFeature(const std::wstring& feature, const std::wstring& version);
@@ -95,4 +107,3 @@ public:
 }; // namespace dom
 
 #endif // DOM_TYPES_INCLUDED
-

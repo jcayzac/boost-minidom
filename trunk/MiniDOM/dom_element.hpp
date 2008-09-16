@@ -1,3 +1,7 @@
+// Copyright © 2008 Julien Cayzac (julien.cayzac@gmail.com)
+// Distributed under the Boost Software License, Version 1.0. (See accompany-
+// ing file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+
 #if !defined(DOM_ELEMENT_INCLUDED)
 #define DOM_ELEMENT_INCLUDED
 
@@ -14,7 +18,9 @@ inline bool operator==(const NamespaceInfo &a,const NamespaceInfo &b) {
     return (a.prefix == b.prefix && a.uri == b.uri);
 }
 
-
+/** Implementation of ELEMENT_NODE DOM nodes.
+  * http://www.w3.org/TR/DOM-Level-2-Core/core.html#ID-745549614
+  */
 class Element: public Node {
 private:
     friend class Node;
@@ -54,11 +60,11 @@ private:
     const NamespaceInfo& _getNamespaceInfoBy(std::wstring NamespaceInfo::*what, const std::wstring& value) const;
 
 protected:
-    NodePtr                    m_pFirstChild;
-    NodePtr                    m_pLastChild;
-    NodePtr                    m_pFirstAttribute;
-    NodePtr                    m_pLastAttribute;
-    std::vector<NamespaceInfo> m_oNamespacesInfo;
+    NodePtr                    m_pFirstChild;     //<! First child node
+    NodePtr                    m_pLastChild;      //<! Last child node
+    NodePtr                    m_pFirstAttribute; //<! First attribute node
+    NodePtr                    m_pLastAttribute;  //<! Last attribute node
+    std::vector<NamespaceInfo> m_oNamespacesInfo; //<! XML namespaces
 };
 
 };

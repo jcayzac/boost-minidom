@@ -1,3 +1,7 @@
+// Copyright © 2008 Julien Cayzac (julien.cayzac@gmail.com)
+// Distributed under the Boost Software License, Version 1.0. (See accompany-
+// ing file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+
 #if !defined(DOM_ATTR_INCLUDED)
 #define DOM_ATTR_INCLUDED
 
@@ -5,6 +9,8 @@
 
 namespace dom {
 
+/// @brief Implementation of the ATTRIBUTE_NODE DOM node.
+/// http://www.w3.org/TR/DOM-Level-2-Core/core.html#ID-637646024
 class Attr: public Node {
 private:
     Attr(const Attr&);

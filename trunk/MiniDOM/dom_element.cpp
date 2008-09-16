@@ -1,3 +1,7 @@
+// Copyright © 2008 Julien Cayzac (julien.cayzac@gmail.com)
+// Distributed under the Boost Software License, Version 1.0. (See accompany-
+// ing file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+
 #include <boost/algorithm/string/split.hpp>
 #include <boost/algorithm/string/classification.hpp>
 #include <vector>
@@ -12,7 +16,6 @@ Element::Element(const std::wstring& name)
 { }
 
 Element::~Element() {
-    // TODO: Detach all child nodes
 }
 
 NodePtr Element::getAttribute(const std::wstring& name) const {
@@ -25,6 +28,7 @@ NodePtr Element::getAttribute(const std::wstring& name) const {
     return NodePtr();
 }
 void Element::setAttribute(const std::wstring& name, const std::wstring& value) {
+    // FIXME: clean this method
     std::vector<std::wstring> attrNameParts;
     boost::algorithm::split(attrNameParts, name, boost::algorithm::is_any_of(L":"));
     if (attrNameParts.size()==2) {
@@ -51,6 +55,7 @@ void Element::setAttribute(const std::wstring& name, const std::wstring& value) 
 }
 
 NodePtr Element::insertBefore(const NodePtr& newChild, const NodePtr& refChild) {
+    // FIXME: raise proper DOMExceptions
     if (!newChild || !refChild)
         return NodePtr();
     // Cannot insert Node if it already has a parent.
@@ -82,6 +87,7 @@ NodePtr Element::insertBefore(const NodePtr& newChild, const NodePtr& refChild) 
 }
 
 NodePtr Element::replaceChild(const NodePtr& newChild, const NodePtr& oldChild) {
+    // FIXME: raise proper DOMExceptions
     if (!newChild || !oldChild)
         return NodePtr();
     // Cannot insert Node if it already has a parent.
@@ -122,6 +128,7 @@ NodePtr Element::replaceChild(const NodePtr& newChild, const NodePtr& oldChild) 
 }
 
 NodePtr Element::appendChild(const NodePtr& n) {
+    // FIXME: raise proper DOMExceptions
     if (!n)
         return NodePtr();
     // Cannot append Node if it already has a parent.
@@ -147,6 +154,7 @@ NodePtr Element::appendChild(const NodePtr& n) {
     return n;
 }
 NodePtr Element::removeChild(const NodePtr& n) {
+    // FIXME: raise proper DOMExceptions
     if (!n)
         return NodePtr();
     // Cannot remove a Node if we don't own it.
@@ -175,6 +183,7 @@ bool Element::hasAttributes() const {
 }
 
 NodePtr Element::cloneNode(bool deep) const {
+    // FIXME: raise proper DOMExceptions
     if (ownerDocument()) {
         NodePtr newElement = ownerDocument()->createElement(tagName());
         Element* newImpl = reinterpret_cast<Element*>(newElement.get());

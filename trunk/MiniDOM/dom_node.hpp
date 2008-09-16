@@ -1,3 +1,7 @@
+// Copyright © 2008 Julien Cayzac (julien.cayzac@gmail.com)
+// Distributed under the Boost Software License, Version 1.0. (See accompany-
+// ing file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+
 #if !defined(DOM_NODE_INCLUDED)
 #define DOM_NODE_INCLUDED
 
@@ -6,14 +10,19 @@
 namespace dom {
 
 /** @brief Base class for all DOM nodes.
+  *
+  * http://www.w3.org/TR/DOM-Level-2-Core/core.html#ID-1950641247
   * @note Nodes may or may not have a parent element.
   * @note Nodes always have an owner. i.e.) ownerDocument() never returns null.
+  * @note Since the DOM specs say most of the API must be availble via the \
+  *       Node class, there are more reinterpret_cast in this class than it \
+  *       takes to make you cry.
   */
 class Node {
 private:
-    friend class DOMImplementation;  // Needed for all those create*() methods in DOM
-    friend class Element;            // Needed for attaching/detaching child nodes
-    friend class Document;           // Needed for attaching/detaching the document element.
+    friend class DOMImplementation;  //<! Needed for all those create*() methods in DOM
+    friend class Element;            //<! Needed for attaching/detaching child nodes
+    friend class Document;           //<! Needed for attaching/detaching the document element.
 public:
     enum TNodeType {
         ELEMENT_NODE    = 1,         //<! An element.
@@ -94,6 +103,7 @@ private:
 
 private:
     // Only set on creation by the owner Document
+    // Gives a Node the power to return its own shared_ptr
     void _setSelf(NodePtr self) { m_pSelf = self; }
 
 protected:
